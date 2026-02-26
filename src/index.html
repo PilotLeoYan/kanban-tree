@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kanban Tree</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- LEFT SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-header">
+      <span class="logo">TreeFlow</span>
+      <div class="header-controls">
+        <button id="font-decrease" title="Decrease font size" aria-label="Decrease font size">A−</button>
+        <button id="font-increase" title="Increase font size" aria-label="Increase font size">A+</button>
+        <button id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+          <span class="theme-icon">◐</span>
+        </button>
+      </div>
+    </div>
+
+    <button id="new-project-btn" class="btn-primary">
+      <span>+</span> New Project
+    </button>
+
+    <nav id="project-list">
+      <!-- Projects injected by JS -->
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main id="main">
+    <div id="empty-state">
+      <p class="empty-title">No project selected</p>
+      <p class="empty-sub">Select or create a project from the sidebar.</p>
+    </div>
+
+    <div id="tree-view" class="hidden">
+      <div id="tree-header">
+        <div>
+          <h1 id="project-title-display"></h1>
+          <p id="project-meta"></p>
+        </div>
+        <div class="tree-header-actions">
+          <button id="rename-project-btn" class="btn-ghost" title="Rename project">Rename</button>
+          <button id="delete-project-btn" class="btn-danger" title="Delete project">Delete</button>
+        </div>
+      </div>
+      <div id="tree-container">
+        <!-- Tree rendered here -->
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL: New / Edit Project -->
+  <div id="modal-overlay" class="hidden">
+    <div id="modal" role="dialog" aria-modal="true">
+      <h2 id="modal-title">New Project</h2>
+      <form id="modal-form" autocomplete="off">
+        <div class="form-group">
+          <label for="modal-project-name">Project name</label>
+          <input type="text" id="modal-project-name" placeholder="e.g. Website Redesign" required />
+        </div>
+        <div class="form-actions">
+          <button type="button" id="modal-cancel" class="btn-ghost">Cancel</button>
+          <button type="submit" class="btn-primary" id="modal-submit">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: New / Edit Node -->
+  <div id="node-modal-overlay" class="hidden">
+    <div id="node-modal" role="dialog" aria-modal="true">
+      <h2 id="node-modal-title">Add Node</h2>
+      <form id="node-modal-form" autocomplete="off">
+        <div class="form-group">
+          <label for="node-title-input">Title</label>
+          <input type="text" id="node-title-input" placeholder="Task or milestone name" required />
+        </div>
+        <div class="form-group">
+          <label for="node-desc-input">Description <span class="optional">(optional)</span></label>
+          <textarea id="node-desc-input" rows="3" placeholder="Additional details..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="node-status-input">Status</label>
+          <select id="node-status-input">
+            <option value="todo">To Do</option>
+            <option value="doing">Doing</option>
+            <option value="review">Review</option>
+            <option value="done">Done</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <button type="button" id="node-modal-cancel" class="btn-ghost">Cancel</button>
+          <button type="submit" class="btn-primary" id="node-modal-submit">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- CONFIRM DIALOG -->
+  <div id="confirm-overlay" class="hidden">
+    <div id="confirm-dialog" role="alertdialog">
+      <p id="confirm-message"></p>
+      <div class="form-actions">
+        <button id="confirm-cancel" class="btn-ghost">Cancel</button>
+        <button id="confirm-ok" class="btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
